@@ -20,6 +20,9 @@
 .logo.wasm:hover {
   filter: drop-shadow(0 0 2em #654ff0aa);
 }
+.logo.go:hover {
+  filter: drop-shadow(0 0 2em #00acd7aa);
+}
 
 @keyframes logo-spin {
   from {

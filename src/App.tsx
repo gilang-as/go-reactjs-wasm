@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import reactLogo from './assets/react.svg'
 import wasmLogo from './assets/wasm.svg'
+import goLogo from './assets/go.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
 import LoadWasm from "@/wasm";
@@ -18,10 +19,13 @@ function App() {
           <img src={reactLogo} className="logo react" alt="React logo" />
         </a>
         <a href="https://webassembly.org" target="_blank">
-          <img src={wasmLogo} className="logo wasm" alt="React logo" />
+          <img src={wasmLogo} className="logo wasm" alt="WebAssembly logo" />
+        </a>
+        <a href="https://go.dev" target="_blank">
+          <img src={goLogo} className="logo go" alt="Go logo" />
         </a>
       </div>
-      <h1>Vite + React + WebAssembly</h1>
+      <h1>Vite + React + WebAssembly + Go</h1>
       <div className="card">
         <button onClick={() => setCount(window.Add(count, 5))}>
           count is {count}
@@ -32,6 +36,9 @@ function App() {
       </div>
       <p className="read-the-docs">
         Click on the Vite and React logos to learn more
+      </p>
+      <p>
+          Source Code on <a href="https://github.com/gilang-as/go-reactjs-wasm" target="_blank">GitHub</a>
       </p>
     </LoadWasm>
   )
