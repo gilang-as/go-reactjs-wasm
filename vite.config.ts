@@ -7,6 +7,7 @@ export default defineConfig({
   resolve: {
     alias: {
       '@/wasm': path.resolve(__dirname, './wasm'),
+      '@/assets': path.resolve(__dirname, './src/assets'),
     },
   },
   plugins: [react()],
