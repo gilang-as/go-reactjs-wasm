@@ -4,7 +4,6 @@ import {
   RouterProvider,
 } from "react-router-dom";
 import './App.css'
-import LoadWasm from "@/wasm";
 import HomePage from './pages/home';
 import StoredPage from './pages/stored';
 
@@ -22,9 +21,7 @@ const App : React.FC = () => {
   ]);
 
   return (
-    <LoadWasm>
       <RouterProvider router={router} />
-    </LoadWasm>
   )
 }
 

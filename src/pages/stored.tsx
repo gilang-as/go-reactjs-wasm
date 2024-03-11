@@ -3,19 +3,29 @@ import reactLogo from '@/assets/react.svg'
 import wasmLogo from '@/assets/wasm.svg'
 import goLogo from '@/assets/go.svg'
 import viteLogo from '/vite.svg'
+import LoadWasm from "../../wasm";
 
 interface Data {
-    ID: string;
-    Text: string;
+    id: string;
+    created_at: string;
+    text: string;
 }
 const StoredPage: React.FC = () => {
     const [data, setData] = useState<Data[]>([]);
     const [text, setText] = useState("");
 
-    useEffect(() => {
-        console.log("AA")
+    const getData = () => {
         const results = window.GetData()
-        setData(results)
+        setData(JSON.parse(results))
+    }
+
+    const onDelete = (id: string) => {
+        window.DeleteData(id)
+        getData()
+    }
+
+    useEffect(() => {
+        getData()
     }, [])
 
 
@@ -23,8 +33,7 @@ const StoredPage: React.FC = () => {
       event.preventDefault();
       if (text != "" ){
           window.AddData(text)
-          const results = window.GetData()
-          console.log(results)
+          getData()
       }
     }
 
@@ -60,6 +69,7 @@ const StoredPage: React.FC = () => {
                         <thead>
                         <tr>
                             <th>ID</th>
+                            <th>Created At</th>
                             <th>Text</th>
                             <th>Actions</th>
                             </tr>
@@ -68,8 +78,10 @@ const StoredPage: React.FC = () => {
                         {data.map((data, index) => {
                             return (
                                 <tr key={index}>
-                                    <td>{data.ID}</td>
-                                    <td>{data.Text}</td>
+                                    <td>{data.id}</td>
+                                    <td>{data.created_at}</td>
+                                    <td>{data.text}</td>
+                                    <td><button onClick={() => onDelete(data.id)}>Delete</button></td>
                                 </tr>
                             )
                         })}
@@ -81,4 +93,12 @@ const StoredPage: React.FC = () => {
     )
 }
 
-export default StoredPage;
+const Wrapper = () => {
+    return (
+        <LoadWasm>
+            <StoredPage/>
+        </LoadWasm>
+    )
+}
+
+export default Wrapper;

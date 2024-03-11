@@ -11,6 +11,9 @@ async function loadWasm(): Promise<void> {
 declare global {
     interface Window {
         Add: (arg: number, arg2: number) => number;
+        AddData: (arg1: string) => never;
+        GetData: () => never;
+        DeleteData: (arg1: string) => never;
     }
 } 
 

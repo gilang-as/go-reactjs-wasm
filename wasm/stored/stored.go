@@ -5,7 +5,9 @@ import (
 	"errors"
 	"github.com/google/uuid"
 	cmap "github.com/orcaman/concurrent-map/v2"
+	"sort"
 	"syscall/js"
+	"time"
 )
 
 type Stored struct {
@@ -23,8 +25,9 @@ func (w *Stored) AddData() js.Func {
 		text := args[0].String()
 		key := uuid.New().String()
 		w.Data.Set(key, Data{
-			ID:   key,
-			Text: text,
+			ID:        key,
+			CreatedAt: time.Now(),
+			Text:      text,
 		})
 		return nil
 	})
@@ -32,17 +35,23 @@ func (w *Stored) AddData() js.Func {
 
 func (w *Stored) GetData() js.Func {
 	return js.FuncOf(func(this js.Value, args []js.Value) interface{} {
-		results := w.Data.Items()
-		if len(results) <= 0 {
-			return []interface{}{}
+		data := w.Data.Items()
+
+		results := make([]Data, 0)
+		for _, v := range data {
+			results = append(results, v)
 		}
+
+		sort.Slice(results, func(i, j int) bool {
+			return results[i].CreatedAt.After(results[j].CreatedAt)
+		})
 
 		jsonData, err := json.Marshal(results)
 		if err != nil {
 			return err
 		}
 
-		return string(jsonData)
+		return js.ValueOf(string(jsonData))
 	})
 }
 

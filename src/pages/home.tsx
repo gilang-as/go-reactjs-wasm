@@ -3,6 +3,7 @@ import reactLogo from '@/assets/react.svg'
 import wasmLogo from '@/assets/wasm.svg'
 import goLogo from '@/assets/go.svg'
 import viteLogo from '/vite.svg'
+import LoadWasm from "../../wasm";
 
 const HomePage: React.FC = () => {
   const [count, setCount] = useState(0)
@@ -12,7 +13,7 @@ const HomePage: React.FC = () => {
   }
 
   return (
-    <>
+    <LoadWasm>
       <div>
         <a href="https://vitejs.dev" target="_blank">
           <img src={viteLogo} className="logo" alt="Vite logo" />
@@ -42,7 +43,7 @@ const HomePage: React.FC = () => {
       <p>
           Source Code on <a href="https://github.com/gilang-as/go-reactjs-wasm" target="_blank">GitHub</a>
       </p>
-    </>
+    </LoadWasm>
   )
 }
 
